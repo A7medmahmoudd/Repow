@@ -14,15 +14,15 @@ namespace Clinic.Controllers
     {
         public readonly idoctor ido;
         public readonly iPatinet ip;
-        public readonly iAppoinment ipo ;
-        public AppoinmentsController(iAppoinment iAppoinment,iPatinet iPatinet,idoctor idoctor)
+        public readonly iAppoinment ipo;
+        public AppoinmentsController(iAppoinment iAppoinment, iPatinet iPatinet, idoctor idoctor)
         {
             ipo = iAppoinment;
             ip = iPatinet;
-            ido=idoctor;
+            ido = idoctor;
         }
 
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
 
             var w = await ipo.getallapp();
@@ -37,7 +37,7 @@ namespace Clinic.Controllers
             var view = new ViewmodelAppointment()
             {
                 doctors = doctorss.ToList(),
-                patinets=Patientss.ToList(),
+                patinets = Patientss.ToList(),
             };
             return View(view);
         }
@@ -58,9 +58,9 @@ namespace Clinic.Controllers
 
         public async Task<IActionResult> detales(int id)
         {
-            var appo=await ipo.getbyidapp(id);
+            var appo = await ipo.getbyidapp(id);
 
-            if(appo == null)
+            if (appo == null)
             {
                 return RedirectToAction("Index");
             }
@@ -72,7 +72,7 @@ namespace Clinic.Controllers
 
         public async Task<IActionResult> detales(Appoinment appoinment)
         {
-        
+
             return RedirectToAction("Index");
 
         }
@@ -87,7 +87,7 @@ namespace Clinic.Controllers
             }
 
             return View(appo);
-          
+
         }
         [HttpPost]
 
@@ -102,16 +102,8 @@ namespace Clinic.Controllers
         public async Task<IActionResult> edit(int id)
         {
             var appo = await ipo.getbyidapp(id);
-
-            if (appo == null)
-            {
-                return NotFound();
-            }
-
-           
-
-                var doctorss = await ido.Getall();
-                var Patientss = await ip.Getall();
+            var doctorss = await ido.Getall();
+            var Patientss = await ip.Getall();
             var view = new ViewmodelAppointment()
             {
                 Note = appo.Notes,
@@ -120,22 +112,19 @@ namespace Clinic.Controllers
                 patinets = Patientss,
                 idDoctor = appo.doctorid,
                 idPatinet = appo.Patinett,
-
-
             };
 
             return View(view);
         }
         [HttpPost]
 
-        public async Task<IActionResult> edit(ViewmodelAppointment viewmodelAppointment,int id)
+        public async Task<IActionResult> edit(ViewmodelAppointment viewmodelAppointment, int id)
         {
-            
            
-               await ipo.updatedapp(viewmodelAppointment,id);
-
+            
+                await ipo.updatedapp(viewmodelAppointment, id);
                 return RedirectToAction("detales");
-
+            
         }
     }
 }

@@ -49,18 +49,14 @@ namespace Clinic.Models.Imprepo
 
         public async Task updatedapp(ViewmodelAppointment viewmodelAppointment,int id)
         {
-            var w=await db.Appoinments.FirstOrDefaultAsync(x=> x.Appoinmentid==id);
-
-            
-            w.Notes = viewmodelAppointment.Note;
+            var w=await db.Appoinments.FirstOrDefaultAsync(x=> x.Appoinmentid ==id);
+           w.Notes = viewmodelAppointment.Note;
             w.DateTime = viewmodelAppointment.Date;
             w.doctorid = viewmodelAppointment.idDoctor;
             w.Patinett = viewmodelAppointment.idPatinet;
-                
-            
+
             db.Appoinments.Update(w);
             await db.SaveChangesAsync();
-
         }
     }
 }
