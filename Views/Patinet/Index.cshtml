@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Clinic.Models.Entites.Patinet>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Adddoct" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PatientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                               <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.PatientsId">Edit</a> |
+
+                                    <a asp-action="Deletep"  class="btn btn-warning" asp-route-id="@item.PatientsId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
